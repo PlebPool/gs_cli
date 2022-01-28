@@ -1,5 +1,5 @@
 {
-  "name": "gs_cli",
+  "name": "@plebpool/gs_cli",
   "version": "1.0.0",
   "description": "\"# gs_cli\"",
   "main": "gs_cli.js",
