@@ -98,8 +98,8 @@ async function acceptWhereYouAre(folderPath) {
         type: "input",
         message: "Commit message ('gs_cli - ' will be prefixed):",
     })
-    childProcess.spawn("git", ["add", "."], {cwd: folderPath})
-    childProcess.spawn("git", ["commit", "-m", `gs_cli - ${answers["msg"]}`], {cwd: folderPath})
+    childProcess.spawnSync("git", ["add", "."], {cwd: folderPath})
+    childProcess.spawnSync("git", ["commit", "-m", `gs_cli - ${answers["msg"]}`], {cwd: folderPath})
     let another = await inquirer.prompt({
         name: "another",
         type: "confirm",
