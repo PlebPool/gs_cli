@@ -114,7 +114,7 @@ async function acceptWhereYouAre(folderPath) {
             message: "Do you want to push?"
         })
         if(wantPush["wantPush"]) {
-            childProcess.spawn("git", ["push"], {cwd: folderPath})
+            childProcess.spawnSync("git", ["push"], {cwd: folderPath})
         }
         process.exit();
     }
