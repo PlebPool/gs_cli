@@ -7,5 +7,7 @@ At the end of the "session" this tool asks you if you want to push your commits.
 
 This tool currently only handles commits and pushes, switching between branches will have to be done outside of this tool.
 
+GS_CLI can be used with npx. ```npx @plebpool/gs_cli```
+
 ![image](https://user-images.githubusercontent.com/64704277/151637999-a93f5b78-6317-4488-a69e-5f67dc0a1e5f.png)
 
