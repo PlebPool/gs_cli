@@ -10,13 +10,16 @@ import gradient from "gradient-string"
 import fs from "fs"
 
 async function welcome() {
+    let author = " https://github.com/PlebPool/gs_cli.git"
     let msg = "GS_CLI.js"
     let underline = " (Git Session Command Line Interface)"
-    let separator = "---------------------------------------"
+    let separator = "-----------------------------------------|"
     return figlet(msg, (err, data) => {
         if(err) {
             console.log(err.message);
         } else {
+            console.log(gradient.pastel.multiline(separator))
+            console.log(gradient.pastel.multiline(author))
             console.log(gradient.pastel.multiline(data))
             console.log(gradient.pastel.multiline(underline))
             console.log(gradient.pastel.multiline(separator))
