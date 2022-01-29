@@ -1,5 +1,7 @@
 # gs_cli
-gs_cli = Github Session Command Line Interface. gs_cli is a cli tool that allows the creation of "git sessions" by selecting a local repository. Once you have selected it, your bolt action-ish way of making commits gets a semi automatic upgrade. All you have to do is type the commit message and hit enter.
+GS_CLI = Github Session Command Line Interface. 
+
+GS_CLI is a cli tool that allows the creation of "git sessions" by selecting a local repository. Once you have selected it, your bolt action-ish way of making commits gets a semi automatic upgrade. All you have to do is type the commit message and hit enter.
 
 At the end of the "session" this tool asks you if you want to push your commits.
 
