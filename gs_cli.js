@@ -27,7 +27,7 @@ async function welcome() {
 
 async function globalQuestion1() {
     const commands = [
-        "SELECT REPOSITORY IN FOLDER"
+        "SELECT STARTING FOLDER"
     ]
     await inquirer.prompt({
         name: "menu",
@@ -36,8 +36,8 @@ async function globalQuestion1() {
         choices: commands
     })
     .then((answers) => {
-        if(answers["menu"] === "SELECT REPOSITORY IN FOLDER") {
-            selectRepositoryInFolder();
+        if(answers["menu"] === commands[0]) {
+            selectFolder(process.cwd());
         }
     })
     .catch((err) => {
@@ -45,51 +45,29 @@ async function globalQuestion1() {
     })
 }
 
-async function selectRepositoryInFolder() {
-    let folderNames = fs.readdirSync(process.cwd(), { withFileTypes: true })
-        .filter(dirent => dirent.isDirectory)
-        .map(dirent => dirent.name);
-
-    for(let i = 0; i < folderNames.length; i++) {
-        console.log(folderNames[i])
-    }
+async function selectFolder(folderPath) {
+    let folderNames = await getFolderContentNames(folderPath)
     let initial = await inquirer.prompt({
         name: "folderPath",
-        type: "input",
-        message: `Type path of folder: ${process.cwd()}`
+        type: "list",
+        message: "Pick a folder, any folder:",
+        choices: folderNames
     })
-
-    let path = process.cwd()
-    if(initial["folderPath"]) {
-        path = initial["folderPath"]
-        folderNames = fs.readdirSync(path, { withFileTypes: true })
-            .filter(dirent => dirent.isDirectory)
-            .map(dirent => dirent.name);
-    }
-
-    await walkInto(path, folderNames);
-}
-
-async function walkInto(folderPath, folderNames) {
-    let done = await inquirer.prompt({
-        name: "done",
-        type: "confirm",
-        message: "Are you where you want to be?"
-    })
-    if(done["done"]) {
+    let path = initial["folderPath"]
+    if(!path.endsWith("..") && path.endsWith(".")) {
         await acceptWhereYouAre(folderPath)
     } else {
-        let answers2 = await inquirer.prompt({
-            name: "pickOne",
-            type: "list",
-            message: "Pick One:",
-            choices: folderNames
-        })
-        let folderNames2 = fs.readdirSync(folderPath+"\\"+answers2["pickOne"], { withFileTypes: true })
-                .filter(dirent => dirent.isDirectory)
-                .map(dirent => dirent.name);
-        await walkInto(folderPath + "\\" + answers2["pickOne"], folderNames2)
+        await selectFolder(folderPath + "\\" + path)
     }
+}
+
+async function getFolderContentNames(path) {
+    let folderNames = fs.readdirSync(path, { withFileTypes: true })
+        .filter(dirent => dirent.isDirectory())
+        .map(dirent => dirent.name)
+    folderNames.unshift("..")
+    folderNames.unshift(".")
+    return folderNames
 }
 
 async function acceptWhereYouAre(folderPath) {
