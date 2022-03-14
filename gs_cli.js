@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 
 import childProcess from "child_process"
-import chalkAnimation from "chalk-animation"
-import chalk from "chalk"
 import inquirer from "inquirer"
 import figlet from "figlet"
-import nanospinner from "nanospinner"
 import gradient from "gradient-string"
 import fs from "fs"
 
@@ -60,7 +57,7 @@ async function selectFolder(folderPath) {
     if(!path.endsWith("..") && path.endsWith(".")) {
         await acceptWhereYouAre(folderPath)
     } else {
-        await selectFolder(folderPath + "\\" + path)
+        await selectFolder(folderPath + "/" + path)
     }
 }
 
